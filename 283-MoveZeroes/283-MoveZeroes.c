@@ -1,16 +1,17 @@
-// Last updated: 4/22/2026, 12:23:37 AM
-1int firstBadVersion(int n) {
-2    int left = 1, right = n;
+// Last updated: 4/22/2026, 12:25:08 AM
+1int searchInsert(int* nums, int numsSize, int target) {
+2    int left = 0, right = numsSize - 1;
 3
-4    while (left < right) {
+4    while (left <= right) {
 5        int mid = left + (right - left) / 2;
 6
-7        if (isBadVersion(mid))
-8            right = mid;      // first bad is at mid or before
-9        else
-10            left = mid + 1;   // first bad is after mid
-11    }
-12
-13    return left;
-14}
-15
+7        if (nums[mid] == target)
+8            return mid;
+9        else if (nums[mid] < target)
+10            left = mid + 1;
+11        else
+12            right = mid - 1;
+13    }
+14
+15    return left;
+16}
