@@ -1,17 +1,17 @@
-// Last updated: 4/22/2026, 12:21:12 AM
-1int maxSubArray(int* nums, int numsSize) {
-2    int maxSum = nums[0];
-3    int currentSum = nums[0];
-4
-5    for (int i = 1; i < numsSize; i++) {
-6        if (currentSum < 0)
-7            currentSum = nums[i];
-8        else
-9            currentSum += nums[i];
-10
-11        if (currentSum > maxSum)
-12            maxSum = currentSum;
+// Last updated: 4/22/2026, 12:21:52 AM
+1int search(int* nums, int numsSize, int target) {
+2    int left = 0, right = numsSize - 1;
+3
+4    while (left <= right) {
+5        int mid = left + (right - left) / 2;
+6
+7        if (nums[mid] == target)
+8            return mid;
+9        else if (nums[mid] < target)
+10            left = mid + 1;
+11        else
+12            right = mid - 1;
 13    }
 14
-15    return maxSum;
+15    return -1;
 16}
