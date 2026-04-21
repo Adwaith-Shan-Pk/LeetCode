@@ -1,14 +1,16 @@
-// Last updated: 4/22/2026, 12:41:57 AM
+// Last updated: 4/22/2026, 12:44:12 AM
 1#include <stdio.h>
-2
-3int minCostClimbingStairs(int* cost, int costSize) {
-4    int a = cost[0], b = cost[1], c;
-5
-6    for (int i = 2; i < costSize; i++) {
-7        c = cost[i] + (a < b ? a : b);
-8        a = b;
-9        b = c;
-10    }
-11
-12    return (a < b ? a : b);
-13}
+2#include <stdlib.h>
+3
+4int* countBits(int n, int* returnSize) {
+5    *returnSize = n + 1;
+6    int *ans = (int*)malloc((n + 1) * sizeof(int));
+7
+8    ans[0] = 0;
+9
+10    for (int i = 1; i <= n; i++) {
+11        ans[i] = ans[i >> 1] + (i & 1);
+12    }
+13
+14    return ans;
+15}
