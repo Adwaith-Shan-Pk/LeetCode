@@ -1,22 +1,31 @@
-// Last updated: 4/22/2026, 12:32:28 AM
-1#include <stdlib.h>
+// Last updated: 4/22/2026, 12:33:08 AM
+1#include <stdbool.h>
 2
-3int cmp(const void* a, const void* b) {
-4    return (*(int*)a - *(int*)b);
-5}
-6
-7int findContentChildren(int* g, int gSize, int* s, int sSize) {
-8    qsort(g, gSize, sizeof(int), cmp);
-9    qsort(s, sSize, sizeof(int), cmp);
-10
-11    int i = 0, j = 0;
-12
-13    while (i < gSize && j < sSize) {
-14        if (s[j] >= g[i]) {
-15            i++;  // child satisfied
-16        }
-17        j++;      // move to next cookie always
-18    }
-19
-20    return i;
-21}
+3bool lemonadeChange(int* bills, int billsSize) {
+4    int five = 0, ten = 0;
+5
+6    for (int i = 0; i < billsSize; i++) {
+7        if (bills[i] == 5) {
+8            five++;
+9        } 
+10        else if (bills[i] == 10) {
+11            if (five == 0) return false;
+12            five--;
+13            ten++;
+14        } 
+15        else { // bills[i] == 20
+16            if (ten > 0 && five > 0) {
+17                ten--;
+18                five--;
+19            } 
+20            else if (five >= 3) {
+21                five -= 3;
+22            } 
+23            else {
+24                return false;
+25            }
+26        }
+27    }
+28
+29    return true;
+30}
