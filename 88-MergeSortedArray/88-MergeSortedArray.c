@@ -1,31 +1,24 @@
-// Last updated: 4/22/2026, 12:33:08 AM
-1#include <stdbool.h>
+// Last updated: 4/22/2026, 12:33:39 AM
+1#include <limits.h>
 2
-3bool lemonadeChange(int* bills, int billsSize) {
-4    int five = 0, ten = 0;
+3int coinChange(int* coins, int coinsSize, int amount) {
+4    int dp[amount + 1];
 5
-6    for (int i = 0; i < billsSize; i++) {
-7        if (bills[i] == 5) {
-8            five++;
-9        } 
-10        else if (bills[i] == 10) {
-11            if (five == 0) return false;
-12            five--;
-13            ten++;
-14        } 
-15        else { // bills[i] == 20
-16            if (ten > 0 && five > 0) {
-17                ten--;
-18                five--;
-19            } 
-20            else if (five >= 3) {
-21                five -= 3;
-22            } 
-23            else {
-24                return false;
-25            }
-26        }
-27    }
-28
-29    return true;
-30}
+6    for (int i = 0; i <= amount; i++) {
+7        dp[i] = INT_MAX;
+8    }
+9    dp[0] = 0;
+10
+11    for (int i = 1; i <= amount; i++) {
+12        for (int j = 0; j < coinsSize; j++) {
+13            if (coins[j] <= i && dp[i - coins[j]] != INT_MAX) {
+14                int candidate = dp[i - coins[j]] + 1;
+15                if (candidate < dp[i]) {
+16                    dp[i] = candidate;
+17                }
+18            }
+19        }
+20    }
+21
+22    return dp[amount] == INT_MAX ? -1 : dp[amount];
+23}
